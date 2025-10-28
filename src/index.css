@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #0a0a0a;
+  color: #f0f0f0;
+  overflow-x: hidden;
+}
+
+section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+/* Hero Section */
+.hero {
+  flex-direction: column;
+  text-align: center;
+  background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+}
+
+.hero-photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #00ffd0;
+  box-shadow: 0 0 30px rgba(0, 255, 208, 0.5);
+  margin-bottom: 1.5rem;
+}
+
+.hero-name {
+  font-size: 2.8rem;
+  color: #00ffd0;
+}
+
+.hero-tagline {
+  font-size: 1.2rem;
+  color: #bbb;
+  margin: 0.5rem 0;
+}
+
+.hero-summary {
+  max-width: 600px;
+  margin: 1.5rem auto;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.scroll-cue {
+  margin-top: 2rem;
+  font-size: 1rem;
+  opacity: 0.8;
+  animation: pulse 1.5s infinite;
+  color: #00ffd0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(5px); }
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
+}
+
+.chapter {
+  position: absolute;
+  width: 80%;
+  max-width: 800px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.chapter h2 {
+  font-size: 2rem;
+  color: #00ffd0;
+  margin-bottom: 1rem;
+}
+
+.chapter p {
+  font-size: 1.1rem;
+  color: #ccc;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
