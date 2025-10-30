@@ -1,62 +1,701 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Global Hero | Portfolio</title>
+  <title>Gurunathan Ramalingam</title>
   <link rel="stylesheet" href="index.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
-<body>
 
-  <!-- Hero Section -->
+<body>
+  <!-- Navigation -->
+  <header>
+    <div class="logo"></div>
+    <nav class="navbar">
+      <a href="#about">
+        <div class="heading">Snapshot</div>
+        <div class="heading-small">About</div>
+      </a>
+      <a href="#services">
+        <div class="heading">Tech Expertise</div>
+        <div class="heading-small">Tech</div>
+      </a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
+  </header>
+
+  <!-- Hero -->
   <section class="hero" id="hero">
     <div class="hero-content">
-      <img src="myphoto.jpg" alt="Global Hero" class="hero-photo">
-      <h1 class="hero-name">Global Hero</h1>
-      <p class="hero-tagline">Building seamless digital experiences.</p>
-      <p class="hero-summary">
-        I’m Global Hero — an AI-powered creator passionate about crafting elegant digital experiences that merge creativity with technology.  
-        Every scroll tells a part of my journey.
-      </p>
+      <img src="./asset/myImage.jpeg" alt="gurunathan" class="hero-photo">
+      <h1>Hello, I'm <span class="highlight">Gurunathan Ramaligam</span></h1>
+      <div class="profile-sub-title">
+        Full Stack Developer
+        <span class="divider">|</span>
+        AI Innovator
+        <span class="divider">|</span>
+        ML Engineer
+      </div>
+      <p>I build scalable web & mobile apps, data pipelines, and AI systems that make an impact.</p>
+      <a href="#portfolio" class="btn">View My Work</a>
       <div class="scroll-cue">Scroll ↓</div>
     </div>
   </section>
 
-  <!-- Timeline Section -->
-  <section class="timeline" id="timeline">
-    <div class="chapter" data-chapter="1">
-      <h2>Year A — Discovery</h2>
-      <p>Placeholder: The moment curiosity met technology. A spark that began a lifelong pursuit of digital excellence.</p>
+  <!-- About -->
+  <section id="about" class="section">
+    <div class="section-header">Snapshot</div>
+    <div style="display: flex; justify-content: center;">
+      <p class="about-p">
+        <b>7+ years</b> of experience in <i>full-stack</i> development, building high-quality, scalable applications
+        across diverse tech stacks. Skilled in <i>RAG applications</i>, <i>machine learning model</i> development, with
+        a passion for <b>software craftsmanship</b> and innovative solutions. Brings a holistic product vision,
+        combining technical excellence with user-focused impact.
+      </p>
     </div>
-
-    <div class="chapter" data-chapter="2">
-      <h2>Year B — The Foundation</h2>
-      <p>Placeholder: Early academic years nurtured a fascination for logic, creativity, and the boundless world of computers.</p>
-    </div>
-
-    <div class="chapter" data-chapter="3">
-      <h2>Year C — The Evolution</h2>
-      <p>Placeholder: Transitioned into Computer Science studies, exploring algorithms, systems, and code that shape the future.</p>
-    </div>
-
-    <div class="chapter" data-chapter="4">
-      <h2>Year D — The Projects</h2>
-      <p>Placeholder: Hands-on learning through impactful projects that combined problem-solving and innovation.</p>
-    </div>
-
-    <div class="chapter" data-chapter="5">
-      <h2>Year F — The Experience</h2>
-      <p>Placeholder: Embarked on professional challenges, transforming ideas into products that empower users globally.</p>
-    </div>
-
-    <div class="chapter" data-chapter="6">
-      <h2>Year K — The Vision</h2>
-      <p>Placeholder: Founded personal ventures — building platforms that unite technology, design, and purpose.</p>
+    <!-- <p>I'm a passionate developer skilled in full-stack web & mobile apps, ML models, RAG pipelines, and computer
+      vision.</p> -->
+    <div class="skills">
+      <span>React</span><span>Next.js</span><span>Node.js</span><span>Python</span>
+      <span>TensorFlow</span><span>LangChain</span><span>OpenAI</span>
+      <span>Flutter</span>
     </div>
   </section>
 
+  <!-- Services -->
+  <section id="services" class="section dark">
+    <div class="section-header">Tech Expertise</div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-header">Craftsmanship</div>
+        <div class="service-description">
+          <p>Write clean and human understandable code</p>
+          <p>Write test first, code next</p>
+        </div>
+      </div>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-header">Full Stack Development</div>
+        <div class="service-description">
+          <p>Web & mobile solutions.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-header">AI & ML Models</div>
+        <div class="service-description">
+          <p>Training and deploying ML Models on prediction and vision tasks.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-header">Data & RAG Systems</div>
+        <div class="service-description">
+          <p>Building retrieval-augmented generation systems and data pipelines.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="section">
+    <div class="section-header">Portfolio</div>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <img src="./asset/myChat.jpeg" alt="AI Chatbot">
+        <div class="overlay">
+          <p>Built a chating application with separate space and integrated chating feature</p>
+        </div>
+        <div class="portfolio-title">AI Chat Assistant</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="./asset/myVision.jpeg" alt="vision based app">
+        <div class="overlay">
+          <p>Object detection application at realtime</p>
+        </div>
+        <div class="portfolio-title">Vision-Based App</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="./asset/myDashboard.jpeg" alt="data dashboard">
+        <div class="overlay">
+          <p>Streaming dashboard with live data feeds.</p>
+        </div>
+        <div class="portfolio-title">Data Dashboard</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="timeline" id="timeline">
+    <div class="chapter" data-chapter="1">
+      <div class="year">2025 (Now)</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Founder & Product developer</div>
+              <div class="company"><a class="company" href="https://www.aburv.com" target="_blank">Aburv</a></div>
+            </div>
+            <div class="duration">April 2023 - Now</div>
+          </div>
+          <div class="focus">User Authentication based data service solution</div>
+          <ul class="highlighted">
+            <li>Under Ideation</li>
+          </ul>
+        </div>
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Senior Software Engineer</div>
+              <div class="company"><a class="company" href="https://www.dataflo.ai" target="_blank">Dataflo</a>, Chennai
+              </div>
+            </div>
+            <div class="duration">April 2025 - October 2025</div>
+          </div>
+          <div class="focus">AI LLM Products</div>
+          <ul>
+            <li>Led a team to build MVP for multiple application</li>
+            <li>Worked on RAG system to build custom knowledge base
+              <div style="margin-left: 10px;">Weaviate vector DB with OpenAI/Gemini and LangGraph/LangSmith</div>
+              <div style="margin-left: 10px;">Monitor token consumption and optimize the cost</div>
+            </li>
+            <!-- <li>Designed and Build CI/CD pipeline in AWS</li> -->
+            <!-- <li>Integrated multiple third-party services like Supersnd, Supertokens</li> -->
+          </ul>
+        </div>
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Master in Engineering</div>
+              <div class="company"><a class="company"
+                  href="https://bits-pilani-wilp.ac.in/m-tech/artificial-intelligence-and-machine-learning.php"
+                  target="_blank">BITS Pilani</a>, WILP</div>
+            </div>
+            <div class="duration">May 2025 - March 2027</div>
+          </div>
+          <div class="focus">Artificial Intelligence / Machine Learning</div>
+          <ul>
+            <li><i>Courses</i>: Machine Learning, Artificial Computational Intelligence</li>
+            <li><i>Courses</i>: Mathematical Foundation for ML, Introduction to Statistical models</li>
+          </ul>
+          <div class="timeline-footer">
+            <div>Medium: <i>English</i> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="2">
+      <div class="year">2024</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Founder & Product developer</div>
+              <div class="company"><a class="company" href="https://www.aburv.com" target="_blank">Aburv</a></div>
+            </div>
+            <div class="duration">April 2023 - Now</div>
+          </div>
+          <div class="focus">Player Based Social media Application</div>
+          <ul>
+            <li>Developed a <strong>social media platform</strong> tailored for sports enthusiasts to connect,
+              share, and engage.</li>
+            <li>Implemented features for <strong>onboarding player profiles</strong>, sharing updates, and networking
+              with fellow mates.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="3">
+      <div class="year">2023</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Platform Engineer</div>
+              <div class="company"><a class="company" href="https://www.appsmith.com" target="_blank">Appsmith</a>,
+                Remote</div>
+            </div>
+            <div class="duration">October 2022 - March 2023</div>
+          </div>
+          <div class="focus">Backend Development</div>
+          <ul>
+            <li>Increased code coverage from 27% to 76% with Unit test and integration tests</li>
+          </ul>
+        </div>
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Founder & Product developer</div>
+              <div class="company"><a class="company" href="https://www.aburv.com" target="_blank">Aburv</a></div>
+            </div>
+            <div class="duration">April 2023 - Now</div>
+          </div>
+          <div class="focus">Sports scoring Application</div>
+          <ul>
+            <li>Interactive interface with a <strong>gamified experience</strong> for referees.</li>
+            <li>Real-time updates and instant feedback on scores.</li>
+            <li>Streamlined workflow to reduce errors and simplify decision-making.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="4">
+      <div class="year">2022</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Application Developer</div>
+              <div class="company"><a class="company" href="https://www.thoughtworks.com"
+                  target="_blank">Thoughtworks</a>, Coimbatore</div>
+            </div>
+            <div class="duration">May 2019 - September 2022</div>
+          </div>
+          <div class="focus">EPIRUST - Modeling and simulation</div>
+          <ul>
+            <li>Designed a Python-based <strong>analytics tool</strong> to visualize system efficiency.</li>
+            <li>Supports multiple simulation types and configurations for comparative analysis.</li>
+            <li>Generates <strong>graphical visualizations</strong> to showcase performance and optimization results.
+            </li>
+            <li>Integrates seamlessly with scalable <strong>Kubernetes clusters</strong> for high-volume simulation
+              results data</li>
+          </ul>
+        </div>
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Platform Engineer</div>
+              <div class="company"><a class="company" href="https://www.appsmith.com" target="_blank">Appsmith</a>,
+                Remote</div>
+            </div>
+            <div class="duration">October 2022 - March 2023</div>
+          </div>
+          <div class="focus">Backend Development</div>
+          <ul>
+            <li>Optimizing the <strong>data structure</strong> to enhance the api throughput</li>
+            <li>Raising PRs for the open issues</li>
+            <li>Solved encoding issue on SMTP</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="5">
+      <div class="year">2021</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Application Developer</div>
+              <div class="company"><a class="company" href="https://www.thoughtworks.com"
+                  target="_blank">Thoughtworks</a>, Coimbatore</div>
+            </div>
+            <div class="duration">May 2019 - September 2022</div>
+          </div>
+          <div class="focus">g-app(Gender App)</div>
+          <ul>
+            <li>Processes videos up to <strong>2 hours</strong> in length with multi-speaker support.</li>
+            <!-- <li>Accepts video file and speaker demographics JSON as input.</li> -->
+            <li>Uses <strong>AWS Transcribe</strong> for <strong>95%+ accurate</strong> speech-to-text conversion.</li>
+            <!-- <li>Extracts audio and transcribes speech using <strong>AWS Transcribe</strong>.</li> -->
+            <!-- <li>*  Maps transcripts to <strong>1000+ speaker profiles</strong> via demographic JSON.</li> -->
+            <li>Maps transcribed text with speaker demographic data.</li>
+            <li>Performs <strong>custom topic modeling</strong> on <strong>50K+ words/min</strong> of transcribed text.
+            </li>
+            <!-- <li>Applies a custom <strong>topic modeling algorithm</strong> to identify discussion themes.</li> -->
+            <!-- <li>Stores structured insights in <strong>PostgreSQL</strong> with <strong>real-time query access</strong>.
+            </li> -->
+            <li>Stores processed data in <strong>PostgreSQL</strong> for analytics.</li>
+            <li>Delivers <strong>interactive React.js dashboards</strong> for instant visualization of topics and
+              speakers with demographic like region, <Strong>gender</strong>.</li>
+            <!-- <li>Visualizes insights via an interactive <strong>React.js</strong> dashboard.</li> -->
+            <li>Scales seamlessly using <strong>GCP Dataflow</strong> for parallel data pipelines.</li>
+            <!-- <li>Utilizes <strong>GCP Dataflow</strong> for scalable processing.</li> -->
+            <li>Achieves <strong>99.9% uptime</strong> with <strong>GCP CI/CD automation</strong> and <strong>GCP
+                Git</strong> version control.</li>
+            <!-- <li>Implements <strong>CI/CD pipelines</strong> and version control with <strong>GCP Git</strong>.</li> -->
+          </ul>
+        </div>
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Personal project</div>
+            </div>
+          </div>
+          <div class="focus">Personal Assistance Suite</div>
+          <ul>
+            <li>Custom AOSP ROM to support following as system application</li>
+            <li style="margin-left: 10px;">Chat, Media, Finance, Device, Dashboard, Calendar, Browser application</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="6">
+      <div class="year">2020</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Application Developer</div>
+              <div class="company"><a class="company" href="https://www.thoughtworks.com"
+                  target="_blank">Thoughtworks</a>, Coimbatore</div>
+            </div>
+            <div class="duration">May 2019 - September 2022</div>
+          </div>
+          <div class="focus">Asset management system</div>
+          <ul>
+            <li>Custom <strong>client scripts</strong>, <strong>UI policies</strong> and <strong>Business Rules</strong>
+              manage asset logic and workflows.</li>
+            <li>Exposes data through self serving, an intuitive <strong>client-facing UI</strong> for employees to view
+              their assigned assets.</li>
+            <li>Supports asset lifecycle management including hardware and software assignments.</li>
+            <li>Full employee information is pulled from <strong>Workday</strong> for accurate assignment mapping.</li>
+            <li><strong>Apple MDM</strong> integration enables auto sign-ins and streamlined device management.</li>
+          </ul>
+        </div>
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Personal project</div>
+            </div>
+          </div>
+          <div class="focus">File versioning in local File system</div>
+          <ul>
+            <li>Multiple version of file diferent places of File system but single file in memory and diff</li>
+            <li>Enabled <strong>versioning</strong> using <i>Git</i></li>
+            <li>File management application to manage git related operation behind the interface</li>
+            <li>Git Metadata managed separately on the disk</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="7">
+      <div class="year">2019</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Associate Data Engineering</div>
+              <div class="company"><a class="company" href="https://www.denodo.com" target="_blank">Denodo
+                  technologies</a>, Chennai</div>
+            </div>
+            <div class="duration">Octomber 2018 - April 2019</div>
+          </div>
+          <div class="focus"> Working on Denodo platform </div>
+          <ul>
+            <li>Created <strong>custom wrapper</strong> and <strong>custom function</strong> for
+              <strong>MongoDB</strong> database
+            </li>
+            <li>Used <strong>sentimental models</strong> into Denodo platorm as custom function</li>
+            <li>Supported <strong>Denodo user's queries</strong></li>
+            <li>Solved queries raised on Databases <strong>MySQL, MSSQL, PostgreSQL, Oracle SQL</strong></li>
+            <li>Solved queries raised on BI tools like <strong>Microstrategies, PowerBI, Tableau</strong></li>
+          </ul>
+        </div>
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Application developer</div>
+              <div class="company"><a class="company" href="https://www.thoughtworks.com"
+                  target="_blank">Thoughtworks</a>, Coimbatore</div>
+            </div>
+            <div class="duration">May 2019 - September 2022</div>
+          </div>
+          <div class="focus">Asset management system</div>
+          <ul>
+            <li>Imports asset information and assignments from <strong>Google Sheets</strong></li>
+            <li>Validates each column using <strong>custom unique rules</strong> before importing into ServiceNow.</li>
+            <!-- <li>Provides a reactive UI to keep users updated about import status in real time.</li> -->
+            <li>Spreadsheet-style import system with validation and error reporting.</li>
+            <li>Reactive UI keeping users informed of import progress and status.</li>
+            <!-- <li>Scalable and robust import pipelines for large datasets.</li> -->
+            <li>Secure user access via <strong>GoogleAuth</strong>.</li>
+            <!-- <li>Comprehensive asset tracking and employee assignment management.</li> -->
+            <li>A robust <strong>import queue</strong> to handle thousands or millions of records efficiently,
+              mitigating ServiceNow bottlenecks.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="8">
+      <div class="year">2018</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Bachelors in Engineering</div>
+              <div class="company"><a class="company" href="https://www.psgtech.edu" target="_blank">PSG College of
+                  technology</a>, Coimbatore</div>
+            </div>
+            <div class="duration">July 2014 - May 2018</div>
+          </div>
+          <div class="focus">Computer Science and Engineering</div>
+          <ul>
+            <li><Strong>Project</Strong>: Runtime Adaptive Data modeling System(RADS)</li>
+            <ul>
+              <li>A system that understand the data model and categories into SQL and NOSQL</li>
+            </ul>
+            <div class="timeline-footer">
+              <li><i>For Developers</i></li>
+              <li><i>Build in Java</i></li>
+            </div>
+          </ul>
+          <div class="timeline-footer">
+            <div>Medium: <i>English</i> </div>
+          </div>
+        </div>
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Application developer Intern</div>
+              <div class="company"><a class="company" href="https://www.psgsoftwaretechnologies.com" target="_blank">PSG
+                  Software Technologies</a>, Coimbatore
+              </div>
+            </div>
+            <div class="duration">Jan 2018 - May 2018</div>
+          </div>
+          <div class="focus">Application development</div>
+          <ul>
+            <li>Developed a API's with MongoDB and interface for internal tools using Node.js and Angular.</li>
+          </ul>
+        </div>
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Associate Data Engineering</div>
+              <div class="company"><a class="company" href="https://www.denodo.com" target="_blank">Denodo
+                  technologies</a>, Chennai</div>
+            </div>
+            <div class="duration">October 2018 - April 2019</div>
+          </div>
+          <div class="focus">Training on Denodo platform</div>
+          <ul>
+            <li>Did a internal <strong>certification</strong> on <strong>Denodo platform 6.0</strong></li>
+            <li>Created <strong>data virtualization views</strong> using Denodo to integrate disparate data sources.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="9">
+      <div class="year">2017</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Bachelors in Engineering</div>
+              <div class="company"><a class="company" href="https://www.psgtech.edu" target="_blank">PSG College of
+                  technology</a>, Coimbatore</div>
+            </div>
+            <div class="duration">July 2014 - May 2018</div>
+          </div>
+          <div class="focus">Computer Science and Engineering</div>
+          <ul>
+            <li><i>Courses</i>: Artificial Intellignece, Embedded systems, Distributed systems, Crytography</li>
+            <li><Strong>Mini Project</Strong>: Build and scaled a web application to manages all hostel operations
+            </li>
+            <ul>
+              <li>Hostelites onboarding, Room allocation, Fee management, Complaint tracking</li>
+              <li><i>Tech Stack</i>: HTML, CSS, JavaScript, PHP, MySQL</li>
+            </ul>
+          </ul>
+          <div class="timeline-footer">
+            <div>Medium: <i>English</i> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="10">
+      <div class="year">2016</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Bachelors in Engineering</div>
+              <div class="company"><a class="company" href="https://www.psgtech.edu" target="_blank">PSG College of
+                  technology</a>, Coimbatore</div>
+            </div>
+            <div class="duration">July 2014 - May 2018</div>
+          </div>
+          <div class="focus">Computer Science and Engineering</div>
+          <ul>
+            <li><i>Courses</i>: Operating system UNIX, Database management systems, Prgramming in Java</li>
+            <li>Programmed a <strong>cricket tournament</strong> simulation in <strong>Java</strong>, following
+              <strong>SOLID design principles</strong>.
+            </li>
+          </ul>
+          <div class="timeline-footer">
+            <div>Medium: <i>English</i> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="11">
+      <div class="year">2015</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Bachelors in Engineering</div>
+              <div class="company"><a class="company" href="https://www.psgtech.edu" target="_blank">PSG College of
+                  technology</a>, Coimbatore</div>
+            </div>
+            <div class="duration">July 2014 - May 2018</div>
+          </div>
+          <div class="focus">Computer Science and Engineering</div>
+          <ul>
+            <li><i>Courses</i>: Linear Algebra, Prgramming in C++</li>
+            <li><i>Courses</i>: Data structures and algorithms, Object-oriented programming</li>
+            <li>Developed a desktop application to manage <strong>Personal Finance</strong> using
+              <strong>C++</strong>
+            </li>
+          </ul>
+          <div class="timeline-footer">
+            <div>Medium: <i>English</i> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="12">
+      <div class="year">2014</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">HSC-State, TN</div>
+              <div class="company"><a class="company" href="" target="_blank">SJSSJS</a>, Tirunelveli</div>
+            </div>
+            <div class="duration">June 2012 - April 2014</div>
+          </div>
+          <div class="focus">Computer Science Group</div>
+          <ul>
+            <li>Cleared the course</li>
+            <li><i>Courses</i>: Basic of C, C++, HTML, CSS, JavaScript</li>
+          </ul>
+          <div class="timeline-footer">
+            <div>Medium: <i>English</i> </div>
+            <div>Secondary language: <i>French</i> </div>
+          </div>
+        </div>
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">Bachelors in Engineering</div>
+              <div class="company"><a class="company" href="https://www.psgtech.edu" target="_blank">PSG College of
+                  technology</a>, Coimbatore</div>
+            </div>
+            <div class="duration">July 2014 - May 2018</div>
+          </div>
+          <div class="focus">Computer Science and Engineering</div>
+          <ul>
+            <li>Started the course</li>
+            <li><i>Courses</i>: Calculus, Programming in C, Engineering basics</li>
+          </ul>
+          <div class="timeline-footer">
+            <div>Medium: <i>English</i> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="13">
+      <div class="year">2012-2013</div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">SSLC - Matricuation</div>
+              <div class="company"><a class="company" href="" target="_blank">SJSSJS</a>, Tirunelveli</div>
+            </div>
+            <div class="duration">June 2011 - April 2012</div>
+          </div>
+          <div class="focus">Cleared the course</div>
+          <div class="timeline-footer">
+            <div>Medium: <i>English</i> </div>
+            <div>Secondary language: <i>Tamil</i> </div>
+          </div>
+        </div>
+
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="role">HSC - TN State</div>
+              <div class="company"><a class="company" href="" target="_blank">SJSSJS</a>, Tirunelveli</div>
+            </div>
+            <div class="duration">June 2012 - Mar 2014</div>
+          </div>
+          <div class="focus">Computer Science Group</div>
+          <ul>
+            <li><i>Courses</i>: Basic of C, C++, HTML, CSS, JavaScript</li>
+          </ul>
+          <div class="timeline-footer">
+            <div>Medium: <i>English</i> </div>
+            <div>Secondary language: <i>French</i> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fullscreen Contact Section -->
+  <section id="contact" class="connect-section" style="padding-bottom: 0px;">
+    <div class="connect-container">
+      <h1>Let's Get Connected</h1>
+      <p>Follow me or send me a message — I'd love to hear from you!</p>
+
+      <!-- Social Links -->
+      <div class="social-links">
+        <a href="https://github.com/gurunathanr" target="_blank" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/gurunathanr" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://medium.com/@gurunathan.ramalingam" target="_blank" aria-label="Medium">
+          <i class="fab fa-medium"></i>
+        </a>
+        <a href="https://twitter.com/guru__nathan" target="_blank" aria-label="Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="mailto:raghuramalingam96@gmail.com" aria-label="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message..." rows="4" required></textarea>
+        <button type="submit" id="sendBtn">
+          <span class="btn-text">Send Message</span>
+          <span class="loader"></span>
+        </button>
+        <p id="statusMsg"></p>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2025 Gurunathan Ramalingam. All rights reserved.</p>
+    </footer>
+  </section>
+  <script src="config.js"></script>
   <script src="index.js"></script>
 </body>
+
 </html>
