@@ -30,6 +30,10 @@ gsap.fromTo(heroImg,
   }
 );
 
+heroImg.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
 // Intro hero animation
 gsap.from(".hero-content > *", {
   opacity: 0,
