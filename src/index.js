@@ -1,14 +1,23 @@
 gsap.registerPlugin(ScrollTrigger);
 
 const heroImg = document.querySelector("#hero-img");
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
+const heroHeight = heroImg.offsetHeight;
+const heroWeight = heroImg.offsetHeight;
 
 gsap.fromTo(heroImg, 
-  { width: 160, height: 160, x: 0, y: 0 }, 
+  { 
+    width: heroWeight,
+    height: heroHeight,
+    x: 0, 
+    y: 0 
+  }, 
   {
-    width: 50,
-    height: 50,
-    x: -700, // move left
-    y: 10,  // move up
+    width: 0.25 * heroWeight + 10, 
+    height: 0.25 * heroHeight + 10,
+    x: -0.46 * screenWidth,    
+    y: 25,
     scrollTrigger: {
       trigger: "#hero",
       start: "top top",
