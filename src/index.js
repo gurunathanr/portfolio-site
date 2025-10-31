@@ -1,5 +1,26 @@
 gsap.registerPlugin(ScrollTrigger);
 
+const heroImg = document.querySelector("#hero-img");
+
+gsap.fromTo(heroImg, 
+  { width: 160, height: 160, x: 0, y: 0 }, 
+  {
+    width: 50,
+    height: 50,
+    x: -700, // move left
+    y: 10,  // move up
+    scrollTrigger: {
+      trigger: "#hero",
+      start: "top top",
+      end: "+=250", // end: "center top",
+      scrub: true,
+      onLeave: () => heroImg.classList.add("in-header"),
+      onEnterBack: () => heroImg.classList.remove("in-header")
+    },
+    ease: "none"
+  }
+);
+
 // Intro hero animation
 gsap.from(".hero-content > *", {
   opacity: 0,
@@ -40,22 +61,63 @@ chapters.forEach((chapter, i) => {
     }, "+=1"); // pause before fading out
 });
 
+// // subtle background color shift through scroll
+// gsap.to("body", {
+//   backgroundColor: "#050505",
+//   scrollTrigger: {
+//     trigger: ".timeline",
+//     start: "top top",
+//     end: "bottom bottom",
+//     scrub: true
+//   }
+// });
+
+// // document.querySelector("#contactForm").addEventListener("submit", async (e) => {
+// //   e.preventDefault();
+// //   const form = e.target;
+// //   const data = {
+// //     name: form.name.value,
+// //     email: form.email.value,
+// //     message: form.message.value
+// //   };
+
+// //   const statusMsg = document.querySelector("#statusMsg");
+// //   statusMsg.textContent = "Sending...";
+
+// //   try {
+// //     const res = await fetch("https://your-api-url.com/api/send", {
+// //       method: "POST",
+// //       headers: { "Content-Type": "application/json" },
+// //       body: JSON.stringify(data)
+// //     });
+
+// //     const result = await res.json();
+// //     if (result.success) {
+// //       statusMsg.textContent = "✅ Message sent successfully!";
+// //       form.reset();
+// //     } else {
+// //       statusMsg.textContent = "❌ Failed to send message.";
+// //     }
+// //   } catch (err) {
+// //     statusMsg.textContent = "⚠️ Network error. Try again later.";
+// //   }
+// // });
+
 const form = document.querySelector("#contactForm");
 const button = document.querySelector("#sendBtn");
 const statusMsg = document.querySelector("#statusMsg");
 
-try{
-  const url = CONFIG.url;  
+try {
+  const url = CONFIG.url;
 }
-catch{
-    button.disabled = true;
-    console.log(form.children)
-    form.childNodes.forEach(node => {
-        if (node.nodeType === Node.ELEMENT_NODE) {
-            node.disabled = true;
-        }
-    });
-    statusMsg.textContent = "⚠️ Contact form is not configured.";
+catch {
+  button.disabled = true;
+  form.childNodes.forEach(node => {
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      node.disabled = true;
+    }
+  });
+  statusMsg.textContent = "⚠️ Contact form is not configured.";
 }
 
 form.addEventListener("submit", async (e) => {

@@ -207,7 +207,6 @@ header {
   background: var(--toggle-bg);
 }
 
-
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
@@ -245,7 +244,18 @@ header {
   object-fit: cover;
   border: 3px solid #00ffd0;
   box-shadow: 0 0 30px rgba(0, 255, 208, 0.5);
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
+}
+
+.hero-photo.in-header {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transform: none !important;
+  z-index: 1000;
 }
 
 .highlight {
@@ -624,6 +634,17 @@ li {
 
 /* Responsive */
 @media (max-width: 600px) {
+  .hero-photo {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .hero-photo.in-header {
+    width: 40px;
+    height: 40px;
+    top: 70px
+  }
+
   .heading-small {
     display: inline;
   }
