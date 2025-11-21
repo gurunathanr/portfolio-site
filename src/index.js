@@ -121,7 +121,7 @@ const button = document.querySelector("#sendBtn");
 const statusMsg = document.querySelector("#statusMsg");
 
 try {
-  const url = CONFIG.url;
+  const url = "/api/contact";
 }
 catch {
   button.disabled = true;
@@ -151,7 +151,6 @@ form.addEventListener("submit", async (e) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${CONFIG.API_KEY}`
       },
       body: JSON.stringify(data)
     });
@@ -172,24 +171,23 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-// ========== THEME HANDLER ==========
 const toggleBtn = document.getElementById('theme-toggle');
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-const storedTheme = localStorage.getItem('theme');
+// const storedTheme = localStorage.getItem('theme');
 
 function setTheme(mode) {
   document.body.classList.remove('light', 'dark');
   document.body.classList.add(mode);
-  toggleBtn.textContent = mode === 'dark' ? '☀️' : '🌙';
+  toggleBtn.textContent = mode !== 'dark' ? '☀️' : '🌙';
   localStorage.setItem('theme', mode);
 }
 
 // Load theme (stored or system)
-if (storedTheme) {
-  setTheme(storedTheme);
-} else {
+// if (storedTheme) {
+  // setTheme(storedTheme);
+// } else {
   setTheme(prefersDark.matches ? 'dark' : 'light');
-}
+// }
 
 toggleBtn.addEventListener('click', () => {
   const current = document.body.classList.contains('dark') ? 'dark' : 'light';
@@ -197,9 +195,9 @@ toggleBtn.addEventListener('click', () => {
 });
 
 prefersDark.addEventListener('change', e => {
-  if (!localStorage.getItem('theme')) {
+  // if (!localStorage.getItem('theme')) {
     setTheme(e.matches ? 'dark' : 'light');
-  }
+  // }
 });
 
 // ========== GSAP ANIMATIONS ==========

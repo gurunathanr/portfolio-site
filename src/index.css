@@ -32,16 +32,6 @@
   --footer-text: #313438;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #f9f9f9;
-    --text: #111;
-    --accent: #0097a7;
-    --card-bg: #fff;
-    --nav-bg: rgba(255, 255, 255, 0.9);
-  }
-}
-
 body.light {
   --bg: #f9f9f9;
   --text: #111;
@@ -191,22 +181,6 @@ header {
   }
 }
 
-
-#theme-toggle {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 0.5rem 0.8rem;
-  transition: background 0.3s ease;
-}
-
-#theme-toggle:hover {
-  background: var(--toggle-bg);
-}
-
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
@@ -214,6 +188,8 @@ header {
 }
 
 #theme-toggle {
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
   background: none;
   border: none;
   font-size: 1.5rem;
@@ -224,6 +200,7 @@ header {
 }
 
 #theme-toggle:hover {
+  background: var(--toggle-bg);
   transform: scale(1.2);
 }
 
@@ -292,7 +269,6 @@ header {
 }
 
 @keyframes pulse {
-
   0%,
   100% {
     opacity: 0.5;
@@ -352,6 +328,9 @@ header {
 .portfolio-grid,
 .testimonial-grid {
   display: flex;
+  flex: 1;
+  width: 100%;
+  /* flex-wrap: wrap; */
   justify-content: center;
   align-items: center;
   gap: 2rem;
@@ -365,7 +344,11 @@ header {
   padding: 1.5rem;
   border-radius: 8px;
   transition: transform 0.3s;
-  width: fit-content;
+  width: inherit;
+}
+
+.portfolio-item {
+  position: relative;
 }
 
 .service-card:hover,
