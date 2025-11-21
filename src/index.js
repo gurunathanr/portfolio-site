@@ -147,7 +147,7 @@ form.addEventListener("submit", async (e) => {
   statusMsg.textContent = "";
 
   try {
-    const res = await fetch(url, {
+    const res = await fetch("/api/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
