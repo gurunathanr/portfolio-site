@@ -34,7 +34,6 @@ heroImg.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-// Intro hero animation
 gsap.from(".hero-content > *", {
   opacity: 0,
   y: 40,
@@ -43,82 +42,58 @@ gsap.from(".hero-content > *", {
   ease: "power2.out"
 });
 
-// Cinematic chapter reveal sequence
 const chapters = gsap.utils.toArray(".chapter");
 
 const tl = gsap.timeline({
   scrollTrigger: {
     trigger: ".timeline",
     start: "top top",
-    end: "+=6000", // adjust for scroll length
+    end: "+=6000",
     scrub: true,
     pin: true,
     anticipatePin: 1
   }
 });
 
-// fade in/out each chapter
 chapters.forEach((chapter, i) => {
   const fadeTime = 1;
+  
+  tl.set(chapter, {
+    zIndex: i
+  });
   tl.to(chapter, {
     opacity: 1,
     y: 0,
     duration: fadeTime,
-    ease: "power2.out"
+    ease: "power2.out",
+    zIndex: chapters.length + 1
   })
     .to(chapter, {
       opacity: 0,
       y: -40,
       duration: fadeTime,
       ease: "power2.in"
-    }, "+=1"); // pause before fading out
+    }, "+=1");
 });
-
-// // subtle background color shift through scroll
-// gsap.to("body", {
-//   backgroundColor: "#050505",
-//   scrollTrigger: {
-//     trigger: ".timeline",
-//     start: "top top",
-//     end: "bottom bottom",
-//     scrub: true
-//   }
-// });
-
-// // document.querySelector("#contactForm").addEventListener("submit", async (e) => {
-// //   e.preventDefault();
-// //   const form = e.target;
-// //   const data = {
-// //     name: form.name.value,
-// //     email: form.email.value,
-// //     message: form.message.value
-// //   };
-
-// //   const statusMsg = document.querySelector("#statusMsg");
-// //   statusMsg.textContent = "Sending...";
-
-// //   try {
-// //     const res = await fetch("https://your-api-url.com/api/send", {
-// //       method: "POST",
-// //       headers: { "Content-Type": "application/json" },
-// //       body: JSON.stringify(data)
-// //     });
-
-// //     const result = await res.json();
-// //     if (result.success) {
-// //       statusMsg.textContent = "✅ Message sent successfully!";
-// //       form.reset();
-// //     } else {
-// //       statusMsg.textContent = "❌ Failed to send message.";
-// //     }
-// //   } catch (err) {
-// //     statusMsg.textContent = "⚠️ Network error. Try again later.";
-// //   }
-// // });
 
 const form = document.querySelector("#contactForm");
 const button = document.querySelector("#sendBtn");
+const buttonText = document.querySelector(".btn-text");
 const statusMsg = document.querySelector("#statusMsg");
+
+function checkForm() {
+  button.disabled = !(
+    form.name.value.trim() &&
+    form.email.value.trim() &&
+    form.message.value.trim()
+  );
+}
+
+form.name.addEventListener("input", checkForm);
+form.email.addEventListener("input", checkForm);
+form.message.addEventListener("input", checkForm);
+
+checkForm();
 
 try {
   const url = "/api/contact";
@@ -135,15 +110,19 @@ catch {
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  if (form.website.value) {
+    statusMsg.textContent = "❌ Bot detected. Submission blocked.";
+    return;
+  }
   const data = {
     name: form.name.value,
     email: form.email.value,
     message: form.message.value
   };
 
-  // Start loader
   button.classList.add("loading");
   button.disabled = true;
+  buttonText.textContent = "";
   statusMsg.textContent = "";
 
   try {
@@ -165,15 +144,17 @@ form.addEventListener("submit", async (e) => {
   } catch {
     statusMsg.textContent = "⚠️ Network error. Try again later.";
   } finally {
-    // Stop loader
     button.classList.remove("loading");
     button.disabled = false;
+    buttonText.textContent = "Send Message";
+    form.name.value = '';
+    form.email.value = '';
+    form.message.value = '';
   }
 });
 
 const toggleBtn = document.getElementById('theme-toggle');
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-// const storedTheme = localStorage.getItem('theme');
 
 function setTheme(mode) {
   document.body.classList.remove('light', 'dark');
@@ -182,12 +163,7 @@ function setTheme(mode) {
   localStorage.setItem('theme', mode);
 }
 
-// Load theme (stored or system)
-// if (storedTheme) {
-  // setTheme(storedTheme);
-// } else {
   setTheme(prefersDark.matches ? 'dark' : 'light');
-// }
 
 toggleBtn.addEventListener('click', () => {
   const current = document.body.classList.contains('dark') ? 'dark' : 'light';
@@ -195,15 +171,11 @@ toggleBtn.addEventListener('click', () => {
 });
 
 prefersDark.addEventListener('change', e => {
-  // if (!localStorage.getItem('theme')) {
     setTheme(e.matches ? 'dark' : 'light');
-  // }
 });
 
-// ========== GSAP ANIMATIONS ==========
 gsap.from(".navbar", { y: -50, opacity: 0, duration: 1, ease: "power3.out" });
 gsap.from(".hero-content h1", { x: -100, opacity: 0, duration: 1 });
-// gsap.from(".hero-content h2", { x: 100, opacity: 0, duration: 1, delay: 0.3 });
 gsap.from(".btn", { scale: 0, duration: 0.8, delay: 0.6, clearProps: "transform" });
 
 gsap.utils.toArray(".section").forEach(section => {
@@ -223,7 +195,6 @@ gsap.utils.toArray(".section").forEach(section => {
 const navbar = document.querySelector(".navbar");
 const links = document.querySelectorAll(".navbar a");
 
-// Create the liquid highlight
 const highlight = document.createElement("span");
 highlight.classList.add("liquid-highlight");
 navbar.appendChild(highlight);
@@ -235,13 +206,11 @@ function moveHighlight(target) {
   highlight.style.width = `${targetRect.width}px`;
   highlight.style.left = `${targetRect.left - navbarRect.left}px`;
 
-  // Animate liquid expansion
   highlight.style.animation = "none";
-  highlight.offsetHeight; // force reflow
+  highlight.offsetHeight;
   highlight.style.animation = "liquidExpand 0.5s ease-in-out forwards";
 }
 
-// Smooth scroll function
 function scrollToSection(hash) {
   const target = document.querySelector(hash);
   if (target) {
@@ -252,29 +221,22 @@ function scrollToSection(hash) {
   }
 }
 
-// --- Handle clicks ---
 links.forEach(link => {
   link.addEventListener("click", e => {
     e.preventDefault();
 
-    // Remove active from all
     links.forEach(l => l.classList.remove("active"));
-    // Set clicked as active
     link.classList.add("active");
 
-    // Move highlight
     moveHighlight(link);
 
-    // Smooth scroll to section
     const hash = link.getAttribute("href");
     scrollToSection(hash);
 
-    // Update URL hash without reloading
     history.pushState(null, "", hash);
   });
 });
 
-// --- On load: set active based on URL hash ---
 window.addEventListener("load", () => {
   const currentHash = window.location.hash || links[0].getAttribute("href");
   const activeLink = Array.from(links).find(
@@ -287,7 +249,6 @@ window.addEventListener("load", () => {
   }
 });
 
-// --- On scroll: update active based on visible section ---
 const sections = Array.from(links)
   .map(link => document.querySelector(link.getAttribute("href")))
   .filter(Boolean);
@@ -310,11 +271,9 @@ window.addEventListener("scroll", () => {
 
   if (!activeLink || activeLink.classList.contains("active")) return;
 
-  // Update active state
   links.forEach(l => l.classList.remove("active"));
   activeLink.classList.add("active");
   moveHighlight(activeLink);
 
-  // Update URL without reloading
   history.replaceState(null, "", hash);
 });
