@@ -43,38 +43,204 @@ gsap.from(".hero-content > *", {
 });
 
 const chapters = gsap.utils.toArray(".chapter");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const timeline = document.querySelector(".timeline");
+const currentYearDisplay = document.createElement("div");
+currentYearDisplay.className = "timeline-current-year";
+timeline.prepend(currentYearDisplay);
 
-const tl = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".timeline",
-    start: "top top",
-    end: "+=6000",
-    scrub: true,
-    pin: true,
-    anticipatePin: 1
+let activeYearLabel = "";
+let activeChapterIndex = -1;
+
+function getYearParts(rawYear) {
+  const match = rawYear.trim().match(/^(\d{3})(\d)(.*)$/);
+
+  if (!match) {
+    return null;
+  }
+
+  const [, prefix, suffix, rest] = match;
+  return { prefix, suffix, rest };
+}
+
+function renderYearLabel(rawYear, animate = true) {
+  if (rawYear === activeYearLabel) {
+    return;
+  }
+
+  const nextParts = getYearParts(rawYear);
+
+  if (!nextParts) {
+    currentYearDisplay.textContent = rawYear;
+    activeYearLabel = rawYear;
+    return;
+  }
+
+  const currentSuffixSlot = currentYearDisplay.querySelector(".year-suffix-slot");
+  const currentSuffix = currentSuffixSlot?.querySelector(".year-suffix");
+  const currentPrefix = currentYearDisplay.querySelector(".year-prefix");
+  const currentRest = currentYearDisplay.querySelector(".year-rest");
+
+  if (
+    animate &&
+    currentPrefix &&
+    currentSuffix &&
+    currentSuffixSlot &&
+    currentRest &&
+    currentPrefix.textContent === nextParts.prefix &&
+    currentRest.textContent === nextParts.rest
+  ) {
+    const nextSuffix = document.createElement("span");
+    nextSuffix.className = "year-suffix";
+    nextSuffix.textContent = nextParts.suffix;
+    nextSuffix.style.opacity = "0";
+    nextSuffix.style.transform = "translateY(8px)";
+    currentSuffixSlot.appendChild(nextSuffix);
+
+    gsap.to(currentSuffix, {
+      opacity: 0,
+      y: -8,
+      duration: 0.25,
+      ease: "power1.in"
+    });
+
+    gsap.to(nextSuffix, {
+      opacity: 1,
+      y: 0,
+      duration: 0.25,
+      ease: "power1.out",
+      onComplete: () => {
+        currentSuffix.remove();
+        activeYearLabel = rawYear;
+      }
+    });
+
+    return;
+  }
+
+  currentYearDisplay.innerHTML = `
+    <span class="year-prefix">${nextParts.prefix}</span>
+    <span class="year-suffix-slot"><span class="year-suffix">${nextParts.suffix}</span></span>
+    <span class="year-rest">${nextParts.rest}</span>
+  `;
+  activeYearLabel = rawYear;
+}
+
+function getChapterBody(chapter) {
+  return chapter.querySelector(".experience-grid");
+}
+
+function getChapterYear(chapter) {
+  return chapter.querySelector(".year")?.textContent.trim() || "";
+}
+
+function getTimelineScrollLength() {
+  const perChapterScroll = Math.max(window.innerHeight * 0.85, 600);
+  return chapters.length * perChapterScroll;
+}
+
+function syncYearToChapter(index, animate = true) {
+  const clampedIndex = Math.max(0, Math.min(chapters.length - 1, index));
+
+  if (clampedIndex === activeChapterIndex) {
+    return;
+  }
+
+  activeChapterIndex = clampedIndex;
+  renderYearLabel(getChapterYear(chapters[clampedIndex]), animate);
+}
+
+chapters.forEach(chapter => {
+  const sourceYear = chapter.querySelector(".year");
+
+  if (sourceYear) {
+    sourceYear.classList.add("timeline-year-source");
   }
 });
 
-chapters.forEach((chapter, i) => {
-  const fadeTime = 1;
-  
-  tl.set(chapter, {
-    zIndex: i
+renderYearLabel(getChapterYear(chapters[0]), false);
+activeChapterIndex = 0;
+
+if (prefersReducedMotion) {
+  chapters.forEach(chapter => {
+    const chapterBody = getChapterBody(chapter);
+    const chapterYear = getChapterYear(chapter);
+
+    renderYearLabel(chapterYear, false);
+
+    gsap.fromTo(
+      chapterBody,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: chapter,
+          start: "top 75%",
+          toggleActions: "play none none none"
+        }
+      }
+    );
   });
-  tl.to(chapter, {
-    opacity: 1,
-    y: 0,
-    duration: fadeTime,
-    ease: "power2.out",
-    zIndex: chapters.length + 1
-  })
-    .to(chapter, {
+} else {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".timeline",
+      start: "top top",
+      end: () => `+=${getTimelineScrollLength()}`,
+      scrub: true,
+      pin: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: self => {
+        const nextIndex = Math.min(
+          chapters.length - 1,
+          Math.floor(self.progress * chapters.length)
+        );
+
+        syncYearToChapter(nextIndex);
+      },
+      onRefresh: self => {
+        const nextIndex = Math.min(
+          chapters.length - 1,
+          Math.floor(self.progress * chapters.length)
+        );
+
+        syncYearToChapter(nextIndex, false);
+      },
+      onLeaveBack: () => syncYearToChapter(0, false),
+      onLeave: () => syncYearToChapter(chapters.length - 1, false)
+    }
+  });
+
+  chapters.forEach((chapter, i) => {
+    const fadeTime = 1;
+    const chapterBody = getChapterBody(chapter);
+
+    tl.set(chapter, {
+      zIndex: i
+    });
+    tl.fromTo(chapterBody, {
+      opacity: 0,
+      y: 20
+    }, {
+      opacity: 1,
+      y: 0,
+      duration: fadeTime,
+      ease: "power2.out",
+      zIndex: chapters.length + 1
+    }, "<");
+
+    tl.to(chapterBody, {
       opacity: 0,
       y: -40,
       duration: fadeTime,
       ease: "power2.in"
     }, "+=1");
-});
+  });
+}
 
 const form = document.querySelector("#contactForm");
 const button = document.querySelector("#sendBtn");
