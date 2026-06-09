@@ -656,6 +656,13 @@ section.timeline {
   font-weight: 500;
 }
 
+.company img {
+  background-color: #FFF;
+  height: 15px;
+  margin-right: 5px; 
+  border-radius:5px;
+}
+
 .duration {
   font-size: 0.95rem;
   color: var(--timeline-duration-text);
