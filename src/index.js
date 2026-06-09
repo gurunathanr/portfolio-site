@@ -161,6 +161,112 @@ chapters.forEach(chapter => {
 renderYearLabel(getChapterYear(chapters[0]), false);
 activeChapterIndex = 0;
 
+const monthNames = [
+  'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'
+];
+
+function buildMonthRail() {
+  const rail = document.createElement('aside');
+  rail.className = 'timeline-month-rail';
+
+  const title = document.createElement('div');
+  title.className = 'timeline-month-rail-title';
+  title.textContent = 'Months';
+  rail.appendChild(title);
+
+  const list = document.createElement('div');
+  list.className = 'timeline-month-list';
+
+  monthNames.forEach((m, idx) => {
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'timeline-month-chip neutral';
+    chip.dataset.monthIndex = String(idx);
+    chip.textContent = m;
+    list.appendChild(chip);
+  });
+
+  rail.appendChild(list);
+  timeline.appendChild(rail);
+}
+
+function parseDurationMonths(durationText, chapterYear) {
+  if (!durationText) return new Set();
+  const text = durationText.replace(/\s+/, ' ');
+  const monthMap = {
+    january:0, february:1, march:2, april:3, may:4, june:5,
+    july:6, august:7, september:8, october:9, november:10, december:11,
+    jan:0, feb:1, mar:2, apr:3, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11
+  };
+
+  const years = Array.from(text.matchAll(/(\d{4})/g)).map(m=>parseInt(m[1],10));
+  const monthsFound = Array.from(text.matchAll(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|January|February|March|April|May|June|July|August|September|October|November|December)/ig)).map(m=>m[0].toLowerCase());
+
+  const result = new Set();
+  if (years.length === 0 && monthsFound.length === 0) return result;
+
+  let startMonth = null, endMonth = null, startYear = null, endYear = null;
+  if (monthsFound.length) startMonth = monthMap[monthsFound[0]] ?? null;
+  if (monthsFound.length > 1) endMonth = monthMap[monthsFound[1]] ?? null;
+  if (years.length) startYear = years[0];
+  if (years.length > 1) endYear = years[1];
+
+  const isNow = /\b(now|present|current)\b/i.test(text);
+  const now = new Date();
+
+  if (!startYear && startMonth !== null) startYear = chapterYear;
+  if (!endYear) endYear = isNow ? now.getFullYear() : startYear || chapterYear;
+  if (startMonth === null) startMonth = 0;
+  if (endMonth === null) endMonth = isNow && endYear === now.getFullYear() ? now.getMonth() : 11;
+
+  if (startYear > chapterYear || endYear < chapterYear) return result;
+
+  const effectiveStart = startYear < chapterYear ? 0 : startMonth;
+  const effectiveEnd = endYear > chapterYear ? 11 : endMonth;
+
+  for (let m = effectiveStart; m <= effectiveEnd; m++) result.add(m);
+  return result;
+}
+
+function getChapterMonthSet(chapter) {
+  const year = parseInt(getChapterYear(chapter).slice(0,4),10) || new Date().getFullYear();
+  const durations = Array.from(chapter.querySelectorAll('.duration')).map(d=>d.textContent || '');
+  const set = new Set();
+  durations.forEach(d => {
+    const s = parseDurationMonths(d, year);
+    s.forEach(x => set.add(x));
+  });
+  return { set, year };
+}
+
+function syncMonthRailToChapter(index) {
+  const clamped = Math.max(0, Math.min(chapters.length - 1, index));
+  const railChips = Array.from(document.querySelectorAll('.timeline-month-chip'));
+  if (!railChips.length) return;
+
+  const { set: monthSet, year } = getChapterMonthSet(chapters[clamped]);
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+
+  railChips.forEach(chip => {
+    const idx = parseInt(chip.dataset.monthIndex,10);
+    chip.classList.remove('active','ranging','neutral');
+
+    if (year > currentYear) {
+      chip.classList.add('neutral');
+    } else if (year === currentYear && idx === currentMonth) {
+      chip.classList.add('active');
+    } else if (monthSet.has(idx)) {
+      chip.classList.add('ranging');
+    } else {
+      chip.classList.add('neutral');
+    }
+  });
+}
+
+buildMonthRail();
+syncMonthRailToChapter(0);
+
 if (prefersReducedMotion) {
   chapters.forEach(chapter => {
     const chapterBody = getChapterBody(chapter);
@@ -201,6 +307,7 @@ if (prefersReducedMotion) {
         );
 
         syncYearToChapter(nextIndex);
+        syncMonthRailToChapter(nextIndex);
       },
       onRefresh: self => {
         const nextIndex = Math.min(
@@ -209,9 +316,10 @@ if (prefersReducedMotion) {
         );
 
         syncYearToChapter(nextIndex, false);
+        syncMonthRailToChapter(nextIndex);
       },
-      onLeaveBack: () => syncYearToChapter(0, false),
-      onLeave: () => syncYearToChapter(chapters.length - 1, false)
+      onLeaveBack: () => { syncYearToChapter(0, false); syncMonthRailToChapter(0); },
+      onLeave: () => { syncYearToChapter(chapters.length - 1, false); syncMonthRailToChapter(chapters.length - 1); }
     }
   });
 
@@ -220,7 +328,7 @@ if (prefersReducedMotion) {
     const chapterBody = getChapterBody(chapter);
 
     tl.set(chapter, {
-      zIndex: i
+      zIndex: i + 1
     });
     tl.fromTo(chapterBody, {
       opacity: 0,
